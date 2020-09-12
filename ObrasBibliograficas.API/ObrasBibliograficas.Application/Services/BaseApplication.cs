@@ -3,6 +3,7 @@ using ObrasBibliograficas.Application.Interfaces;
 using ObrasBibliograficas.Application.Models.Request;
 using ObrasBibliograficas.Application.Models.Response;
 using ObrasBibliograficas.Domain.Entitties;
+using ObrasBibliograficas.Domain.Filters;
 using ObrasBibliograficas.Domain.Interfaces;
 using ObrasBibliograficas.Domain.Validations.Interfaces;
 using System;
@@ -12,16 +13,17 @@ using System.Text;
 
 namespace ObrasBibliograficas.Application.Services
 {
-    public class BaseApplication<TEntity, TRequest, TResponse> : IBaseApplication<TRequest, TResponse>
+    public class BaseApplication<TEntity, TRequest, TResponse, TFilter> : IBaseApplication<TRequest, TResponse,TFilter>
         where TEntity : BaseEntity
         where TRequest : BaseModelRequest
         where TResponse : BaseModelResponse
+        where TFilter : BaseFilter
     {
-        public readonly IBaseRepository<TEntity> Repository;
+        public readonly IBaseRepository<TEntity, TFilter> Repository;
         public readonly IMapper Mapper;
         public readonly IBaseValidation<TEntity> Validate;
 
-        public BaseApplication(IBaseRepository<TEntity> repository, IBaseValidation<TEntity> validate, IMapper mapper)
+        public BaseApplication(IBaseRepository<TEntity, TFilter> repository, IBaseValidation<TEntity> validate, IMapper mapper)
         {
             Repository = repository;
             Mapper = mapper;
@@ -74,14 +76,37 @@ namespace ObrasBibliograficas.Application.Services
             }
         }
 
-        public ResponseModel<PagedResponse<TResponse>> GetAll(int pageNumber = 1, int pageSize = 10)
+        public virtual ResponseModel<TResponse> GetBy(TFilter filter)
+        {
+            try
+            {
+                TResponse response = null;
+
+                var allEntities = Repository.GetAll(filter);
+
+                if (allEntities != null && allEntities.Count() > 0)
+                {
+                    var entity = allEntities.FirstOrDefault();
+                    response = Mapper.Map<TResponse>(entity);
+                }
+
+                var result = ResponseModel<TResponse>.GetResponse(response);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ResponseModel<PagedResponse<TResponse>> GetAll(TFilter filter, int pageNumber = 1, int pageSize = 10)
         {
             try
             {
                 var pagedResponse = new PagedResponse<TResponse>();
                 var listResponse = new List<TResponse>();
 
-                var allEntities = Repository.GetAll();
+                var allEntities = Repository.GetAll(filter, pageNumber, pageSize, true);
 
                 if (allEntities != null && allEntities.Count() > 0)
                 {

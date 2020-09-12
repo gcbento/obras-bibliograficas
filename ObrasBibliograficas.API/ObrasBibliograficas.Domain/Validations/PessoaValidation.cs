@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using ObrasBibliograficas.Domain.Entitties;
+using ObrasBibliograficas.Domain.Filters;
 using ObrasBibliograficas.Domain.Interfaces;
 using ObrasBibliograficas.Domain.Validations.Interfaces;
 
 namespace ObrasBibliograficas.Domain.Validations
 {
-    public class PessoaValidation : BaseValidation<Pessoa, IPessoaRepository>, IPessoaValidation
+    public class PessoaValidation : BaseValidation<Pessoa, PessoaFilter, IPessoaRepository>, IPessoaValidation
     {
         public PessoaValidation(IPessoaRepository repository) : base(repository)
         {
@@ -15,7 +16,9 @@ namespace ObrasBibliograficas.Domain.Validations
         private void Validate()
         {
             RuleFor(g => g.Nome)
-                  .NotEmpty().WithMessage("Nome é obrigatório.");
+                  .NotEmpty().WithMessage("Nome é obrigatório.")
+                  .Matches(@"^[a-zA-Z]+$").WithMessage("Não é permitido números");
+                
         }
     }
 }

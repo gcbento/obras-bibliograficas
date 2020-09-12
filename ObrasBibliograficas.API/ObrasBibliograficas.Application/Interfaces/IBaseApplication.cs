@@ -1,14 +1,16 @@
 ﻿using ObrasBibliograficas.Application.Models.Request;
 using ObrasBibliograficas.Application.Models.Response;
+using ObrasBibliograficas.Domain.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ObrasBibliograficas.Application.Interfaces
 {
-    public interface IBaseApplication<TRequest, TResponse>
+    public interface IBaseApplication<TRequest, TResponse, TFilter>
         where TRequest : BaseModelRequest
         where TResponse : BaseModelResponse
+        where TFilter : BaseFilter
     {
         ResponseModel<bool?> Add(TRequest model);
 
@@ -16,8 +18,8 @@ namespace ObrasBibliograficas.Application.Interfaces
 
         ResponseModel<bool?> Delete(int id);
 
-        //ResponseModel<TResponse> GetBy(TFilter id);
+        ResponseModel<TResponse> GetBy(TFilter filter);
 
-        ResponseModel<PagedResponse<TResponse>> GetAll(int pageNumber = 1, int pageSize = 10);
+        ResponseModel<PagedResponse<TResponse>> GetAll(TFilter filter, int pageNumber = 1, int pageSize = 10);
     }
 }

@@ -1,14 +1,16 @@
 ﻿using FluentValidation;
 using ObrasBibliograficas.Domain.Entitties;
+using ObrasBibliograficas.Domain.Filters;
 using ObrasBibliograficas.Domain.Interfaces;
 using ObrasBibliograficas.Domain.Validations.Interfaces;
 using System;
 
 namespace ObrasBibliograficas.Domain.Validations
 {
-    public class BaseValidation<TEntity, TRepository> : AbstractValidator<TEntity>, IBaseValidation<TEntity>
+    public class BaseValidation<TEntity, TFilter, TRepository> : AbstractValidator<TEntity>, IBaseValidation<TEntity>
         where TEntity : BaseEntity
-        where TRepository : IBaseRepository<TEntity>
+        where TFilter : BaseFilter
+        where TRepository : IBaseRepository<TEntity, TFilter>
     {
         public readonly TRepository Repository;
 

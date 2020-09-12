@@ -1,13 +1,12 @@
 ﻿using ObrasBibliograficas.Domain.Entitties;
-using System;
-using System.Collections.Generic;
+using ObrasBibliograficas.Domain.Filters;
 using System.Linq;
-using System.Text;
 
 namespace ObrasBibliograficas.Domain.Interfaces
 {
-    public interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity, TFilter>
         where TEntity : BaseEntity
+        where TFilter : BaseFilter
     {
         TEntity Add(TEntity entity);
 
@@ -16,6 +15,8 @@ namespace ObrasBibliograficas.Domain.Interfaces
         bool Delete(int id);
 
         IQueryable<TEntity> GetAll();
+
+        IQueryable<TEntity> GetAll(TFilter filter, int pageNumber = 1, int pageSize = 10, bool contains = false);
 
         int SaveChanges();
     }

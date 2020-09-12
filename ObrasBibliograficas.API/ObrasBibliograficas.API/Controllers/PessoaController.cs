@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ObrasBibliograficas.API.Attributes;
 using ObrasBibliograficas.Application.Interfaces;
 using ObrasBibliograficas.Application.Models.Request;
+using ObrasBibliograficas.Domain.Filters;
 
 namespace ObrasBibliograficas.API.Controllers
 {
@@ -16,21 +18,22 @@ namespace ObrasBibliograficas.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get([FromQuery] int pageNumber = 0, int pageSize = 0)
+        public ActionResult Get([FromQuery] PessoaFilter filter, int pageNumber = 0, int pageSize = 0)
         {
-            //if (pageNumber > 0 && pageSize > 0)
-            //{
-            var games = _pessoaApplication.GetAll(pageNumber, pageSize);
-            return GetResponse(games);
-            //}
-            //else
-            //{
-            //    //var game = _pessoaApplication.GetBy(filter);
-            //    //return GetResponse(game);
-            //}
+            if (pageNumber > 0 && pageSize > 0)
+            {
+                var pessoas = _pessoaApplication.GetAll(filter, pageNumber, pageSize);
+                return GetResponse(pessoas);
+            }
+            else
+            {
+                var pessoa = _pessoaApplication.GetBy(filter);
+                return GetResponse(pessoa);
+            }
         }
 
         [HttpPost]
+        [ValidateModel]
         public ActionResult Post([FromBody] PessoaRequest request)
         {
             var result = _pessoaApplication.Add(request);
@@ -38,6 +41,7 @@ namespace ObrasBibliograficas.API.Controllers
         }
 
         [HttpPut]
+        [ValidateModel]
         public ActionResult Put([FromBody] PessoaRequest request)
         {
             var result = _pessoaApplication.Update(request);

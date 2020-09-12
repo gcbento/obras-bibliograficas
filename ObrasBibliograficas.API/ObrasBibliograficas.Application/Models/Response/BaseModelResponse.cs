@@ -8,5 +8,6 @@ namespace ObrasBibliograficas.Application.Models.Response
     {
         public int Id { get; set; }
         public DateTime DataCadastro { get; set; }
+        public DateTime DataAlteracao { get; set; }
     }
 }

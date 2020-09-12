@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ObrasBibliograficas.Domain.Entitties;
+using ObrasBibliograficas.Domain.Filters;
 using ObrasBibliograficas.Domain.Interfaces;
 using ObrasBibliograficas.Infra.Data.Context;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ObrasBibliograficas.Infra.Data.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IDisposable
+    public class BaseRepository<TEntity, TFilter> : IBaseRepository<TEntity, TFilter>, IDisposable
         where TEntity : BaseEntity
+        where TFilter : BaseFilter
     {
         protected readonly ObrasBibliograficasContext Db;
         protected readonly DbSet<TEntity> DbSet;
@@ -18,6 +19,11 @@ namespace ObrasBibliograficas.Infra.Data.Repositories
         {
             Db = context;
             DbSet = Db.Set<TEntity>();
+        }
+
+        public IQueryable<TEntity> Query
+        {
+            get { return DbSet.AsNoTracking(); }
         }
 
         public TEntity Add(TEntity entity)
@@ -47,11 +53,30 @@ namespace ObrasBibliograficas.Infra.Data.Repositories
             }
         }
 
-        public IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             try
             {
-                return DbSet.AsNoTracking();
+                return Query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"message: {ex.Message} | stackTrace: {ex.StackTrace}");
+            }
+        }
+
+        public virtual IQueryable<TEntity> GetAll(TFilter filter, int pageNumber = 1, int pageSize = 10, bool contais = false)
+        {
+            try
+            {
+                var query = Query;
+                if (filter?.Id > 0)
+                    query = query.Where(x => x.Id == filter.Id);
+
+                query = query.Skip((pageNumber - 1) * pageSize)
+                              .Take(pageSize);
+
+                return query;
             }
             catch (Exception ex)
             {
