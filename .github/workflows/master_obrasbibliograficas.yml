@@ -21,11 +21,11 @@ jobs:
         dotnet-version: '3.1.102'
 
     - name: Build with dotnet
-      run: cd ./ObrasBibliograficas.API 
+      run: cd ./ObrasBibliograficas.API/
            dotnet build --configuration Release
 
     - name: dotnet publish
-      run: cd ./ObrasBibliograficas.API
+      run: cd ./ObrasBibliograficas.API/
            dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Deploy to Azure Web App
