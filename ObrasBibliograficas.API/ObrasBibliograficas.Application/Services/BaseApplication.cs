@@ -106,12 +106,14 @@ namespace ObrasBibliograficas.Application.Services
                 var pagedResponse = new PagedResponse<TResponse>();
                 var listResponse = new List<TResponse>();
 
-                var allEntities = Repository.GetAll(filter, pageNumber, pageSize, true);
+                var allEntities = Repository.GetAll();
 
                 if (allEntities != null && allEntities.Count() > 0)
                 {
                     pagedResponse.Total = allEntities.Count();
                     pagedResponse.CurrentPage = pageNumber;
+
+                    allEntities = Repository.GetAll(filter, pageNumber, pageSize, true);
 
                     var listEntity = allEntities.ToList();
 
