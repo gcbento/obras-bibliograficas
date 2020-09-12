@@ -11,15 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{B4394669-0285-44E5-896B-F3C48F1E9862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObrasBibliograficas.Domain", "ObrasBibliograficas.Domain\ObrasBibliograficas.Domain.csproj", "{967F8A9F-4D7A-4831-BA9E-E4B70AC56CDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObrasBibliograficas.Domain", "ObrasBibliograficas.Domain\ObrasBibliograficas.Domain.csproj", "{967F8A9F-4D7A-4831-BA9E-E4B70AC56CDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObrasBibliograficas.Application", "ObrasBibliograficas.Application\ObrasBibliograficas.Application.csproj", "{D7E4F844-00D1-41B0-B614-867666A25D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObrasBibliograficas.Application", "ObrasBibliograficas.Application\ObrasBibliograficas.Application.csproj", "{D7E4F844-00D1-41B0-B614-867666A25D0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - Data", "4.1 - Data", "{768AB605-18BC-466A-B639-AB6891E229FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - CrossCutting", "4.2 - CrossCutting", "{E6F36E99-CB8F-4772-A8F0-6DD2BBA4226A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObrasBibliograficas.Infra.Data", "ObrasBibliograficas.Infra.Data\ObrasBibliograficas.Infra.Data.csproj", "{1E1E88C8-7940-4E49-843C-01E58305F11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObrasBibliograficas.Infra.Data", "ObrasBibliograficas.Infra.Data\ObrasBibliograficas.Infra.Data.csproj", "{1E1E88C8-7940-4E49-843C-01E58305F11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObrasBibliograficas.API", "ObrasBibliograficas.API\ObrasBibliograficas.API.csproj", "{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObrasBibliograficas.Infra.CrossCutting.IoC", "ObrasBibliograficas.Infra.CrossCutting.IoC\ObrasBibliograficas.Infra.CrossCutting.IoC.csproj", "{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{1E1E88C8-7940-4E49-843C-01E58305F11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E1E88C8-7940-4E49-843C-01E58305F11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E1E88C8-7940-4E49-843C-01E58305F11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +61,8 @@ Global
 		{768AB605-18BC-466A-B639-AB6891E229FE} = {B4394669-0285-44E5-896B-F3C48F1E9862}
 		{E6F36E99-CB8F-4772-A8F0-6DD2BBA4226A} = {B4394669-0285-44E5-896B-F3C48F1E9862}
 		{1E1E88C8-7940-4E49-843C-01E58305F11A} = {768AB605-18BC-466A-B639-AB6891E229FE}
+		{47F79DE0-02A3-41BA-9B6C-76BB6CE5D3F4} = {2A690198-36AE-4684-B30B-07BCE3FB29AB}
+		{9EC60D7C-3E95-4B43-A0DA-D078A3891CD9} = {E6F36E99-CB8F-4772-A8F0-6DD2BBA4226A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49812AD6-BE55-4E38-834E-46206001D5B5}

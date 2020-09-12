@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ObrasBibliograficas.Application\ObrasBibliograficas.Application.csproj" />
+    <ProjectReference Include="..\ObrasBibliograficas.Infra.CrossCutting.IoC\ObrasBibliograficas.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\ObrasBibliograficas.Infra.Data\ObrasBibliograficas.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
