@@ -26,6 +26,13 @@ namespace ObrasBibliograficas.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("AnyOrigin", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddDataBaseConfig(Configuration);
             services.AddControllers();
             services.AddAutoMapperConfig();
@@ -42,6 +49,8 @@ namespace ObrasBibliograficas.API
             {
                 o.ForwardClientCertificate = false;
             });
+
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,6 +59,8 @@ namespace ObrasBibliograficas.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AnyOrigin");
 
             app.UseRouting();
 
