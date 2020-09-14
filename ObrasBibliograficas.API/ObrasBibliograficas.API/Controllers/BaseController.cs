@@ -11,10 +11,7 @@ namespace ObrasBibliograficas.API.Controllers
     {
         public ActionResult GetResponse<T>(ResponseModel<T> result)
         {
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
+            return Ok(result);
         }
     }
 }
