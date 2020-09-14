@@ -4,9 +4,13 @@
     <form>
         <mat-form-field>
             <mat-label>Nome</mat-label>
-            <input matInput placeholder="Pressione enter para incluir" name="nome">
+            <input matInput placeholder="Pressione enter para incluir" name="nome" [(ngModel)]="pessoa.nome">
         </mat-form-field>
     </form>
+
+    <button mat-raised-button (click)="cadastrarPessoa()" color="primary">
+        cadastrar
+</button>
 </mat-card>
 
-<app-pessoa-list></app-pessoa-list>
+<app-pessoa-list [listData]="listData"></app-pessoa-list>
