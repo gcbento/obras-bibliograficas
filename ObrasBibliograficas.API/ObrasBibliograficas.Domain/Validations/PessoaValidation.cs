@@ -17,7 +17,7 @@ namespace ObrasBibliograficas.Domain.Validations
         {
             RuleFor(g => g.Nome)
                   .NotEmpty().WithMessage("Nome é obrigatório.")
-                  .Matches(@"^[a-zA-Z]+$").WithMessage("Não é permitido números");
+                  .Matches(@"/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g").WithMessage("Não é permitido números");
                 
         }
     }
