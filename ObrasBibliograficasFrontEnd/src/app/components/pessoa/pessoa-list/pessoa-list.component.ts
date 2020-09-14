@@ -37,7 +37,7 @@ export class PessoaListComponent implements AfterViewInit, OnInit, OnChanges {
   ngAfterViewInit() {
     this.paginator.page.subscribe(
       (event) => {
-        this.currentPage = event.pageIndex
+        this.currentPage = event.pageIndex + 1
         this.pessoaService.getAll(10, event.pageIndex + 1).subscribe(result => {
           let data = result.data
           this.pessoas = data.listData ?? []
@@ -54,7 +54,7 @@ export class PessoaListComponent implements AfterViewInit, OnInit, OnChanges {
   private tratarNomes() {
     if (this.pessoas.length > 0) {
       this.pessoas.forEach(pessoa => {
-        let qtdeNomes = pessoa.nome.toLocaleLowerCase().split(' ')
+        let qtdeNomes = pessoa.nome.trim().toLocaleLowerCase().split(' ')
         let ultimoNome = "";
         let nome = ""
         let penultimoNome = ""
@@ -65,8 +65,8 @@ export class PessoaListComponent implements AfterViewInit, OnInit, OnChanges {
             if (i == qtdeNomes.length - 1) {
               ultimoNome = qtdeNomes[i].toUpperCase()
               if (this.isTipoEspeficoSobrenome(ultimoNome)) {
-                
-                penultimoNome = this.pegarPenultimoNome(nome)                
+
+                penultimoNome = this.pegarPenultimoNome(nome)
 
                 ultimoNome = `${penultimoNome} ${ultimoNome}`
                 let ultimoNomeIndex = nome.lastIndexOf(' ')
@@ -92,8 +92,8 @@ export class PessoaListComponent implements AfterViewInit, OnInit, OnChanges {
     }
   }
 
-  private pegarPenultimoNome(nomeCompleto): string{
-    let penultimoNome = nomeCompleto.trim().split(' ')[nomeCompleto.trim().split(' ').length - 1].toLocaleUpperCase()   
+  private pegarPenultimoNome(nomeCompleto): string {
+    let penultimoNome = nomeCompleto.trim().split(' ')[nomeCompleto.trim().split(' ').length - 1].toLocaleUpperCase()
     return penultimoNome
   }
 
@@ -125,11 +125,13 @@ export class PessoaListComponent implements AfterViewInit, OnInit, OnChanges {
 
   private consultarPessoas() {
     this.pessoaService.getAll(10, this.currentPage).subscribe(result => {
-      let data = result.data
-      this.pessoas = data.listData ?? []
-      this.length = data.total
-      this.pageSize = data.totalPage
-      this.tratarNomes()
+      if (result.success) {
+        let data = result.data
+        this.pessoas = data.listData ?? []
+        this.length = data.total
+        this.pageSize = data.totalPage
+        this.tratarNomes()
+      }
     })
   }
 }
